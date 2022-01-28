@@ -2,7 +2,7 @@
  * @Author: kanglang
  * @Date: 2022-01-25 12:35:04
  * @LastEditors: kanglang
- * @LastEditTime: 2022-01-25 16:33:51
+ * @LastEditTime: 2022-01-28 17:22:41
  * @Description: 首页
  */
 
@@ -11,6 +11,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { HomeIcon, HomedIcon } from '@/images';
 import { mainThemeColor, px2dp } from '@/styles';
 import { msg } from '@/common';
+import OpacityButton from 'react-native-opacity-button';
 
 export default class Home extends Component {
   static navigationOptions = () => ({
@@ -24,29 +25,55 @@ export default class Home extends Component {
   });
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <TouchableOpacity
+      <View style={styles.container}>
+        <OpacityButton
           style={styles.btnBox}
-          onPress={this.goToComponents}
-        >
-          <Text style={styles.btnTip}>基础容器组件</Text>
-        </TouchableOpacity>
+          txtStyle={styles.btnTip}
+          text='基础容器组件'
+          onPress={() => {
+            this.goToComponents('BasicLayoutDemo')
+          }}
+        />
+        <OpacityButton
+          style={styles.btnBox}
+          txtStyle={styles.btnTip}
+          text='加载器loading'
+          onPress={() => {
+            this.goToComponents('LoadingDemo')
+          }}
+        />
+        <OpacityButton
+          style={styles.btnBox}
+          txtStyle={styles.btnTip}
+          text='自定义按钮'
+          onPress={() => {
+            this.goToComponents('CustomButtonDemo')
+          }}
+        />
+
       </View>
     );
   }
 
-  goToComponents = () => {
+  goToComponents = (routeName) => {
     msg.emit('router: goToNext', {
-      routeName: 'BasicLayoutDemo'
+      routeName
     })
   }
 }
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: px2dp(100),
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   btnBox: {
     backgroundColor: mainThemeColor,
-    paddingHorizontal: px2dp(16),
-    paddingVertical: px2dp(8),
-    borderRadius: px2dp(8)
+    marginRight: px2dp(16),
+    marginBottom: px2dp(16),
   },
   btnTip: {
     color: '#FFFFFF',

@@ -3,24 +3,26 @@
  * @Author: kanglang
  * @Date: 2022-01-25 12:33:24
  * @LastEditors: kanglang
- * @LastEditTime: 2022-01-25 16:33:14
+ * @LastEditTime: 2022-01-28 17:19:20
  * @Description: 路由管理文件
  */
 import React from 'react';
-import {PixelRatio, Platform} from 'react-native';
+import { PixelRatio, Platform } from 'react-native';
 
-import {createAppContainer, NavigationActions} from 'react-navigation';
+import { createAppContainer, NavigationActions } from 'react-navigation';
 import {
   createStackNavigator,
   StackViewStyleInterpolator,
 } from 'react-navigation-stack';
-import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {BackImage} from '@/common';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { BackImage } from '@/common';
 import { mainThemeColor } from '@/styles';
 import Welcome from './pages/welcome';
 import Home from './pages/home';
 import User from './pages/user';
 import BasicLayoutDemo from './pages/components/basic-layout-demo';
+import LoadingDemo from './pages/components/loading-demo';
+import CustomButtonDemo from './pages/components/custom-button-demo';
 
 const isAndroid = Platform.OS === 'android';
 
@@ -99,7 +101,21 @@ const AppNavigator = createStackNavigator(
         ...titleCenter,
       }
     },
-    
+    LoadingDemo: {
+      screen: LoadingDemo,
+      navigationOptions: {
+        headerTitle: '加载器',
+        ...titleCenter,
+      }
+    },
+    CustomButtonDemo: {
+      screen: CustomButtonDemo,
+      navigationOptions: {
+        headerTitle: '自定义按钮',
+        ...titleCenter,
+      }
+    },
+
   },
   {
     initialRouteName: 'Welcome',
@@ -139,7 +155,7 @@ const AppNavigator = createStackNavigator(
     //     header: null
     // },
     //  当切换动画结束时调用的函数
-    onTransitionEnd: async () => {},
+    onTransitionEnd: async () => { },
   },
 );
 
@@ -155,7 +171,7 @@ AppNavigator.router.getStateForAction = (action, state) => {
     if (state.routes.length > 1) {
       routes = state.routes.filter(r => r.routeName !== action.routeName);
       routes = routes.slice(0, routes.length - index);
-      const {routeName, ...other} = action;
+      const { routeName, ...other } = action;
       const route = {
         routeName,
         params: other,
@@ -172,7 +188,7 @@ AppNavigator.router.getStateForAction = (action, state) => {
   }
   if (state && action.type === 'refresh') {
     // 刷新当前页面
-    const {routes} = state;
+    const { routes } = state;
     routes[state.routes.length - 1].key = Math.random().toString();
     return {
       ...state,
@@ -200,7 +216,7 @@ AppNavigator.router.getStateForAction = (action, state) => {
   }
   if (state && action.type === 'refreshRoute') {
     // 刷新栈中指定名称路由,如果不存在,则不进行任何操作
-    const {routes} = state;
+    const { routes } = state;
     const index = routes.findIndex(r => r.routeName === action.routeName);
     if (index >= 0) {
       routes[index].key = Math.random().toString();
@@ -230,15 +246,15 @@ AppNavigator.router.getStateForAction = (action, state) => {
   // feedback特殊处理
   if (action.params && action.params.routerFrom) {
     const routerFrom = action.params.routerFrom;
-    const {routeName, ...other} = action;
+    const { routeName, ...other } = action;
     let routes = [];
     routes.push({
       routeName: 'Tab',
       index: 0,
       key: Math.random().toString(),
       routes: [
-        {key: 'Home', routeName: 'Home', params: undefined},
-        {key: 'User', routeName: 'User', params: undefined},
+        { key: 'Home', routeName: 'Home', params: undefined },
+        { key: 'User', routeName: 'User', params: undefined },
       ],
     });
     // if (routerFrom == 'OrderPay' && routeName == 'MyOrder') {
