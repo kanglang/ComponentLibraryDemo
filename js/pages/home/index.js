@@ -2,7 +2,7 @@
  * @Author: kanglang
  * @Date: 2022-01-25 12:35:04
  * @LastEditors: kanglang
- * @LastEditTime: 2022-01-28 17:22:41
+ * @LastEditTime: 2022-02-07 14:36:51
  * @Description: 首页
  */
 
@@ -48,6 +48,14 @@ export default class Home extends Component {
           text='自定义按钮'
           onPress={() => {
             this.goToComponents('CustomButtonDemo')
+          }}
+        />
+        <OpacityButton
+          style={styles.btnBox}
+          txtStyle={styles.btnTip}
+          text='短信倒计时'
+          onPress={() => {
+            this.goToComponents('SenondCountdownDemo')
           }}
         />
 

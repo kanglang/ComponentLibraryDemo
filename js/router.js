@@ -3,7 +3,7 @@
  * @Author: kanglang
  * @Date: 2022-01-25 12:33:24
  * @LastEditors: kanglang
- * @LastEditTime: 2022-01-28 17:19:20
+ * @LastEditTime: 2022-02-07 14:36:18
  * @Description: 路由管理文件
  */
 import React from 'react';
@@ -23,6 +23,7 @@ import User from './pages/user';
 import BasicLayoutDemo from './pages/components/basic-layout-demo';
 import LoadingDemo from './pages/components/loading-demo';
 import CustomButtonDemo from './pages/components/custom-button-demo';
+import SenondCountdownDemo from './pages/components/second-countdown-demo';
 
 const isAndroid = Platform.OS === 'android';
 
@@ -115,6 +116,13 @@ const AppNavigator = createStackNavigator(
         ...titleCenter,
       }
     },
+    SenondCountdownDemo: {
+      screen: SenondCountdownDemo,
+      navigationOptions: {
+        headerTitle: '短信倒计时组件',
+        ...titleCenter,
+      }
+    }
 
   },
   {
